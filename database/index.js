@@ -20,22 +20,24 @@ let save = (reposArr, cb) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  var promises = [];
-  reposArr.forEach(repo => {
-    var name = repo.name;
-    var description = repo.description;
-    var html_url = repo.html_url;
-    var watchers_count = repo.watchers_count;
-    promises.push(Repo.create({name, description, html_url, watchers_count}));
-  })
-  Promise.all(promises).then(() => {
-    console.log('saved all repos to mongodb');
-    cb();
-  })
+  Repo.remove({}, () => {
+    var promises = [];
+    reposArr.forEach(repo => {
+      var name = repo.name;
+      var description = repo.description;
+      var html_url = repo.html_url;
+      var watchers_count = repo.watchers_count;
+      promises.push(Repo.create({name, description, html_url, watchers_count}));
+    })
+    Promise.all(promises).then(() => {
+      console.log('saved all repos to mongodb');
+      cb();
+    })
+  });
 };
 
 let readTop25 = (cb) => {
-  Repo.find().then((data) => {
+  Repo.find().limit(25).sort({watchers_count: -1}).then((data) => {
     cb(data);
   })
 }

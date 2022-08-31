@@ -15,18 +15,16 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setInterval(() => {
-      axios.get('http://localhost:1128/repos').then((response) => {
+    let getRepos = axios.get('http://localhost:1128/repos').then((response) => {
         this.setState({repos: response.data})
       })
-    }, 3000)
   }
 
   search (term) {
-    //console.log(`${term} was searched`);
     var url = 'http://localhost:1128/repos';
     axios.post(url, { username: term}).then(() => {
       console.log('posted to db');
+      this.componentDidMount();
     })
   }
 
