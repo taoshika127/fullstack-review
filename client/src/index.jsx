@@ -19,7 +19,6 @@ class App extends React.Component {
       axios.get('http://localhost:1128/repos').then((response) => {
         this.setState({repos: response.data})
       })
-
     }, 3000)
   }
 
