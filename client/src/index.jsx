@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
-const getReposByUsername = require('../../helpers/github.js').getReposByUsername;
+const axios = require('axios');
 
 class App extends React.Component {
   constructor(props) {
@@ -14,11 +14,20 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    setInterval(() => {
+      axios.get('http://localhost:1128/repos').then((response) => {
+        this.setState({repos: response.data})
+      })
+
+    }, 3000)
+  }
+
   search (term) {
-    console.log(`${term} was searched`);
-    getReposByUsername(term, (data) => {
-      console.log(data);
-      this.setState({repos: data})
+    //console.log(`${term} was searched`);
+    var url = 'http://localhost:1128/repos';
+    axios.post(url, { username: term}).then(() => {
+      console.log('posted to db');
     })
   }
 

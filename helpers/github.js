@@ -8,6 +8,7 @@ let getReposByUsername = (term, cb) => {
   // The options object has been provided to help you out,
   // but you'll have to fill in the URL
   let options = {
+    method: 'get',
     url: `https://api.github.com/users/${term}/repos`,
     headers: {
       'User-Agent': 'request',
@@ -15,8 +16,9 @@ let getReposByUsername = (term, cb) => {
     }
   };
   axios(options).then((response) => {
-    cb(response);
-  });
+    var arr = response.data;
+    cb(arr);
+  }) ;
 
 }
 

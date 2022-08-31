@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
+//mongoose.connect('mongodb://localhost:27017/test');
 mongoose.connect('mongodb://localhost/fetcher');
+// const MongoClient = require('mongodb').MongoClient;
+// MongoClient.connect({useNewUrlParser: true});
 
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
@@ -26,10 +29,16 @@ let save = (reposArr, cb) => {
     promises.push(Repo.create({name, description, html_url, watchers_count}));
   })
   Promise.all(promises).then(() => {
-    console.log('successfully saved to db!');
+    console.log('saved all repos to mongodb');
     cb();
+  })
+};
+
+let readTop25 = (cb) => {
+  Repo.find().then((data) => {
+    cb(data);
   })
 }
 
 
-module.exports.save = save;
+module.exports = { save, readTop25 };
