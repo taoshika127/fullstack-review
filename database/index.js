@@ -1,5 +1,5 @@
+const Promise = require('bluebird');
 const mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/test');
 mongoose.connect('mongodb://localhost/fetcher');
 // const MongoClient = require('mongodb').MongoClient;
 // MongoClient.connect({useNewUrlParser: true});
@@ -7,10 +7,10 @@ mongoose.connect('mongodb://localhost/fetcher');
 let repoSchema = mongoose.Schema({
   // TODO: your schema here!
   name: String,
+  owner: String,
   description: String,
   html_url: String,
   watchers_count: Number
-
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -20,20 +20,19 @@ let save = (reposArr, cb) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
-  Repo.remove({}, () => {
-    var promises = [];
-    reposArr.forEach(repo => {
-      var name = repo.name;
-      var description = repo.description;
-      var html_url = repo.html_url;
-      var watchers_count = repo.watchers_count;
-      promises.push(Repo.create({name, description, html_url, watchers_count}));
-    })
-    Promise.all(promises).then(() => {
-      console.log('saved all repos to mongodb');
-      cb();
-    })
-  });
+  var promises = [];
+  reposArr.forEach(repo => {
+    var name = repo.name;
+    var owner = repo.owner.login;
+    var description = repo.description;
+    var html_url = repo.html_url;
+    var watchers_count = repo.watchers_count;
+    promises.push(Repo.create({name, owner, description, html_url, watchers_count}));
+  })
+  Promise.all(promises).then(() => {
+    console.log('saved all repos to mongodb');
+    cb();
+  })
 };
 
 let readTop25 = (cb) => {
