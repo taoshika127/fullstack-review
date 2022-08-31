@@ -18,8 +18,7 @@ let getReposByUsername = (term, cb) => {
   axios(options).then((response) => {
     var arr = response.data;
     cb(arr);
-  }) ;
-
+  });
 }
 
 module.exports.getReposByUsername = getReposByUsername;

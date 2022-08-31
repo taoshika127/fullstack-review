@@ -1,5 +1,6 @@
 const express = require('express');
 let app = express();
+
 const { postHandler, getHandler }= require('./requestHandler.js');
 
 app.use(express.static(__dirname + '/../client/dist'));

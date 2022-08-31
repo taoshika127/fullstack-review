@@ -10,7 +10,6 @@ const RepoList = (props) => (
           <h4>{repo.name + ' ' + repo.description + ' ' + repo.watchers_count}</h4>
         </div>
       )
-
     })}
   </div>
 )

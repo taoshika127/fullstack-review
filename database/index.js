@@ -40,5 +40,4 @@ let readTop25 = (cb) => {
   })
 }
 
-
 module.exports = { save, readTop25 };
