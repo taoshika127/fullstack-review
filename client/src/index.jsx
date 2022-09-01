@@ -15,13 +15,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let getRepos = axios.get(process.env.localhost + ':1128/repos').then((response) => {
+    let getRepos = axios.get(process.env.localhost + ':' + process.env.PORT + '/repos').then((response) => {
         this.setState({repos: response.data})
       })
   }
 
   search (term) {
-    var url = process.env.localhost + ':1128/repos';
+    var url = process.env.localhost + ':' + process.env.PORT + '/repos';
+    console.log('url', url);
     axios.post(url, { username: term}).then(() => {
       console.log('posted to db');
       this.componentDidMount();
