@@ -11,7 +11,6 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
   }
 
   componentDidMount() {
@@ -31,8 +30,8 @@ class App extends React.Component {
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

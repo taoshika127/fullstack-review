@@ -27,7 +27,11 @@ let save = (reposArr, cb) => {
     var description = repo.description;
     var html_url = repo.html_url;
     var watchers_count = repo.watchers_count;
-    promises.push(Repo.create({name, owner, description, html_url, watchers_count}));
+    promises.push(Repo.find({html_url}).then((response) => {
+      if (response.length === 0) {
+        Repo.create({name, owner, description, html_url, watchers_count})
+      }
+    }));
   })
   Promise.all(promises).then(() => {
     console.log('saved all repos to mongodb');
