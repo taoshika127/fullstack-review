@@ -1,6 +1,7 @@
 const Promise = require('bluebird');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+require('dotenv').config();
+mongoose.connect(`${process.env.MONGODB_PATH}`);
 // const MongoClient = require('mongodb').MongoClient;
 // MongoClient.connect({useNewUrlParser: true});
 

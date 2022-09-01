@@ -22,7 +22,7 @@ app.get('/repos', getHandler
 
 app.get('/cool', (req, res) => res.send(cool()));
 
-let port = 1128;
+let port = process.env.PORT;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);

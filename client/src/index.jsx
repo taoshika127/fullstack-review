@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Search from './components/Search.jsx';
 import RepoList from './components/RepoList.jsx';
+
 const axios = require('axios');
 
 class App extends React.Component {
@@ -14,13 +15,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let getRepos = axios.get('http://localhost:1128/repos').then((response) => {
+    let getRepos = axios.get(process.env.localhost + ':1128/repos').then((response) => {
         this.setState({repos: response.data})
       })
   }
 
   search (term) {
-    var url = 'http://localhost:1128/repos';
+    var url = process.env.localhost + ':1128/repos';
     axios.post(url, { username: term}).then(() => {
       console.log('posted to db');
       this.componentDidMount();
