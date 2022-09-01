@@ -1,4 +1,5 @@
 const express = require('express');
+const cool = require('cool-ascii-faces');
 let app = express();
 
 const { postHandler, getHandler }= require('./requestHandler.js');
@@ -18,6 +19,8 @@ app.get('/repos', getHandler
   // TODO - your code here!
   // This route should send back the top 25 repos
 );
+
+app.get('/cool', (req, res) => res.send(cool()));
 
 let port = 1128;
 
